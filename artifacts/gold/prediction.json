@@ -1,6 +1,6 @@
 {
   "metal": "gold",
-  "generated_at": "2026-11-16T21:33:01.675498+00:00",
+  "generated_at": "2026-11-17T20:22:58.994239+00:00",
   "origin": "2026-10-31",
   "target_month": "2026-11-30",
   "source_price_month": "2026-09-30",
@@ -24,67 +24,67 @@
   "rules": "Heurística académica v1; no calibrada con pérdidas financieras.",
   "news_context": {
     "metal": "gold",
-    "as_of": "2026-11-16T21:33:01.609541+00:00",
+    "as_of": "2026-11-17T20:22:58.943896+00:00",
     "window_days": 31,
     "requested": 5,
     "selected": 5,
-    "analyzed": 1,
-    "relevant": 1,
-    "pending": 4,
+    "analyzed": 2,
+    "relevant": 2,
+    "pending": 3,
     "missing_articles": 0,
-    "mean_sentiment": -1.0,
+    "mean_sentiment": -0.9,
     "tone": "Negativo",
     "news_ids": [
-      "52e4174ab35e595e306d228fbdb286a6fd1fc70fa43d53c2dfb72ef9f9b28f8d",
-      "312ab64b3861df4590f96bd6b98a43a7c41b0da64ca72f258fbd59c5c3b16537",
-      "27309cdaddc20831f981343e39c8ac466ef17323a58b556f0940dd2fe8a41c4c",
-      "18cd2191bf1148f9e681deadede5d883d5bf631d3c8bfdc1c4a1a8e91af1665a",
-      "62f50119178082a36f30506fb7b0ca9a842467e53065b239b747812f5d959fb4"
+      "5be8fbda1619b1ce27d113789c633abe74c087bc2c611e6bb9188f1c111feb17",
+      "3b3b53f76b3b6fda65b1e0c99283a57f27b402acf2cb7feb45d0c71c2ad653b4",
+      "66b75f193b1da0c8e3f2d5f2cc975e67be38b36daf7c75a4e82e5ea2250d0284",
+      "0ffd8707e1d3a2b89a0fa8999175a24c50862b6f9d98d8254b10bdc005c26c7c",
+      "1fd8965244848dcd9be8ef8865c5e87c5f2eaa892a6adb8cef3a8290ead1e81d"
     ],
     "providers": {
-      "ministral-14b-2512": 1
+      "ministral-14b-2512": 2
     },
     "article_audit": [
       {
-        "id": "52e4174ab35e595e306d228fbdb286a6fd1fc70fa43d53c2dfb72ef9f9b28f8d",
-        "published_at": "2026-11-16T20:07:22+00:00",
-        "fetched_at": "2026-11-16T21:32:21.411854+00:00",
-        "analyzed_at": "2026-11-16T21:32:57.834474+00:00",
+        "id": "5be8fbda1619b1ce27d113789c633abe74c087bc2c611e6bb9188f1c111feb17",
+        "published_at": "2026-11-17T19:19:01+00:00",
+        "fetched_at": "2026-11-17T20:22:38.930289+00:00",
+        "analyzed_at": "2026-11-17T20:22:53.145241+00:00",
         "relevant": true,
         "score": -1.0,
         "provider": "ministral-14b-2512"
       },
       {
-        "id": "312ab64b3861df4590f96bd6b98a43a7c41b0da64ca72f258fbd59c5c3b16537",
-        "published_at": "2026-11-16T19:31:33+00:00",
-        "fetched_at": "2026-11-16T21:32:21.411854+00:00",
+        "id": "3b3b53f76b3b6fda65b1e0c99283a57f27b402acf2cb7feb45d0c71c2ad653b4",
+        "published_at": "2026-11-17T18:43:11+00:00",
+        "fetched_at": "2026-11-17T20:22:38.930289+00:00",
+        "analyzed_at": "2026-11-17T20:22:56.071269+00:00",
+        "relevant": true,
+        "score": -0.8,
+        "provider": "ministral-14b-2512"
+      },
+      {
+        "id": "66b75f193b1da0c8e3f2d5f2cc975e67be38b36daf7c75a4e82e5ea2250d0284",
+        "published_at": "2026-11-17T18:02:58+00:00",
+        "fetched_at": "2026-11-17T20:22:38.930289+00:00",
         "analyzed_at": null,
         "relevant": null,
         "score": null,
         "provider": null
       },
       {
-        "id": "27309cdaddc20831f981343e39c8ac466ef17323a58b556f0940dd2fe8a41c4c",
-        "published_at": "2026-11-16T19:23:39+00:00",
-        "fetched_at": "2026-11-16T21:32:21.411854+00:00",
+        "id": "0ffd8707e1d3a2b89a0fa8999175a24c50862b6f9d98d8254b10bdc005c26c7c",
+        "published_at": "2026-11-17T16:45:00+00:00",
+        "fetched_at": "2026-11-17T20:22:38.930289+00:00",
         "analyzed_at": null,
         "relevant": null,
         "score": null,
         "provider": null
       },
       {
-        "id": "18cd2191bf1148f9e681deadede5d883d5bf631d3c8bfdc1c4a1a8e91af1665a",
-        "published_at": "2026-11-16T16:55:00+00:00",
-        "fetched_at": "2026-11-16T21:32:21.411854+00:00",
-        "analyzed_at": null,
-        "relevant": null,
-        "score": null,
-        "provider": null
-      },
-      {
-        "id": "62f50119178082a36f30506fb7b0ca9a842467e53065b239b747812f5d959fb4",
-        "published_at": "2026-11-16T16:26:23+00:00",
-        "fetched_at": "2026-11-16T21:32:21.411854+00:00",
+        "id": "1fd8965244848dcd9be8ef8865c5e87c5f2eaa892a6adb8cef3a8290ead1e81d",
+        "published_at": "2026-11-17T16:34:00+00:00",
+        "fetched_at": "2026-11-17T20:22:38.930289+00:00",
         "analyzed_at": null,
         "relevant": null,
         "score": null,
@@ -100,10 +100,10 @@
     "status": "blocked",
     "experimental": true,
     "validated": false,
-    "generated_at": "2026-11-16T21:33:01.678663+00:00",
+    "generated_at": "2026-11-17T20:22:58.996314+00:00",
     "base_origin": "2026-10-31",
     "target_month": "2026-11-30",
-    "news_as_of": "2026-11-16T21:33:01.609541+00:00",
+    "news_as_of": "2026-11-17T20:22:58.943896+00:00",
     "metal": "gold",
     "baseline_probabilities": {
       "Bajista": 0.24589113891124725,
@@ -149,8 +149,8 @@
       "max_snapshot_age_hours": 24,
       "formula": "h=(1-a)*p+a*q; a=peso*(relevantes/5)*abs(sentimiento)",
       "neutral_probability": "Se conserva la probabilidad Neutral del modelo base.",
-      "relevant_articles": 1,
-      "mean_sentiment": -1.0
+      "relevant_articles": 2,
+      "mean_sentiment": -0.9
     },
     "limitations": [
       "Escenario experimental con probabilidades orientativas: no fue entrenado ni validado temporalmente.",
