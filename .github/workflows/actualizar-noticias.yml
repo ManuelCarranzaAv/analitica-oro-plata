@@ -1,6 +1,6 @@
-# Actualización automática diaria: noticias + sentimiento con Mistral + predicción.
+# Actualización automática diaria: noticias + sentimiento con Gemini + predicción.
 # Guarda la base en el repositorio; Render despliega el commit y conserva los datos aunque se reinicie.
-# Requiere el secreto MISTRAL_API_KEY en Settings → Secrets and variables → Actions.
+# Requiere el secreto GEMINI_API_KEY en Settings → Secrets and variables → Actions.
 name: Actualizar noticias y predicción
 
 on:
@@ -27,10 +27,11 @@ jobs:
       - run: pip install -r requirements-lock.txt
       - name: Noticias, sentimiento y predicción
         env:
-          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
-          SENTIMENT_PROVIDER: mistral
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-3.1-flash-lite
+          SENTIMENT_PROVIDER: gemini
         run: |
-          # Si Mistral falla, las noticias quedan pendientes y la predicción se recalcula igual.
+          # Si Gemini falla, las noticias quedan pendientes y la predicción se recalcula igual.
           python -m metals.cli news-refresh --per-metal 5 --analyze || echo "::warning::El análisis de noticias no terminó; quedan pendientes."
           python -m metals.cli predict > /dev/null
       - name: Guardar resultados en el repositorio
