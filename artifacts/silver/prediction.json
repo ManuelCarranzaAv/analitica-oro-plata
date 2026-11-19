@@ -1,6 +1,6 @@
 {
   "metal": "silver",
-  "generated_at": "2026-11-19T19:05:08.989380+00:00",
+  "generated_at": "2026-11-19T19:40:28.752388+00:00",
   "origin": "2026-10-31",
   "target_month": "2026-11-30",
   "source_price_month": "2026-09-30",
@@ -22,70 +22,70 @@
   "rules": "Heurística académica v1; no calibrada con pérdidas financieras.",
   "news_context": {
     "metal": "silver",
-    "as_of": "2026-11-19T19:05:08.817609+00:00",
+    "as_of": "2026-11-19T19:40:28.693432+00:00",
     "window_days": 31,
     "requested": 5,
     "selected": 5,
     "analyzed": 5,
-    "relevant": 3,
+    "relevant": 5,
     "pending": 0,
     "missing_articles": 0,
-    "mean_sentiment": -0.16666666666666666,
+    "mean_sentiment": -0.5,
     "tone": "Negativo",
     "news_ids": [
-      "7ce11a64d5482ef87c4b39a383984d1d8b08d0a480a54413455efd10573befaf",
-      "023831b32354c4363511fc54b42a120d09bc332324bd30dbbaae7169b5d37a4a",
-      "62de98a8276ef2117c894d2de21e24e97ff3d635db669e759aff3badbcf568e8",
-      "7c5d70d9e726fdad06afc9bde380ca8075be57d1ae9a2e197879e5cdf45bf0dc",
-      "d95ea78024982e53c48f98151f182314c6de10dea997fd3c7a794b6ccf028a1d"
+      "6d96feed24abfe3eae356e4e2ec747e65a80430bcf3e56d5089f030c1feebedd",
+      "cca0674859faab39212b8ad6de4dc14452643ee07622d7c0023c87239fdab094",
+      "b325a44376bd66a32cd15ff8e513aa5b4448db61fd894ada23541a7c55d0e540",
+      "b092a87df4cada486ddfa9c9b14a0a2d3f79096e9eee0a6c385942e3be758f40",
+      "8d0aa0922081e7ce9b35b497ee4795624a7bc8f0fbb61e7e1d4f1199626efd2a"
     ],
     "providers": {
       "gemini-3.1-flash-lite": 5
     },
     "article_audit": [
       {
-        "id": "7ce11a64d5482ef87c4b39a383984d1d8b08d0a480a54413455efd10573befaf",
-        "published_at": "2026-11-19T17:09:00+00:00",
-        "fetched_at": "2026-11-19T18:48:06.798451+00:00",
-        "analyzed_at": "2026-11-19T19:03:36.528294+00:00",
+        "id": "6d96feed24abfe3eae356e4e2ec747e65a80430bcf3e56d5089f030c1feebedd",
+        "published_at": "2026-11-18T22:02:35+00:00",
+        "fetched_at": "2026-11-19T19:35:35.334985+00:00",
+        "analyzed_at": "2026-11-19T19:36:55.942168+00:00",
         "relevant": true,
         "score": -1.0,
         "provider": "gemini-3.1-flash-lite"
       },
       {
-        "id": "023831b32354c4363511fc54b42a120d09bc332324bd30dbbaae7169b5d37a4a",
-        "published_at": "2026-11-19T16:09:43+00:00",
-        "fetched_at": "2026-11-19T18:48:06.798451+00:00",
-        "analyzed_at": "2026-11-19T19:04:11.139602+00:00",
+        "id": "cca0674859faab39212b8ad6de4dc14452643ee07622d7c0023c87239fdab094",
+        "published_at": "2026-11-18T14:06:27+00:00",
+        "fetched_at": "2026-11-19T19:35:35.334985+00:00",
+        "analyzed_at": "2026-11-19T19:36:59.874014+00:00",
         "relevant": true,
-        "score": 0.0,
+        "score": -1.0,
         "provider": "gemini-3.1-flash-lite"
       },
       {
-        "id": "62de98a8276ef2117c894d2de21e24e97ff3d635db669e759aff3badbcf568e8",
-        "published_at": "2026-11-19T16:03:00+00:00",
-        "fetched_at": "2026-11-19T18:55:42.647896+00:00",
-        "analyzed_at": "2026-11-19T19:04:23.851299+00:00",
-        "relevant": false,
-        "score": null,
-        "provider": "gemini-3.1-flash-lite"
-      },
-      {
-        "id": "7c5d70d9e726fdad06afc9bde380ca8075be57d1ae9a2e197879e5cdf45bf0dc",
-        "published_at": "2026-11-19T15:44:00+00:00",
-        "fetched_at": "2026-11-19T18:48:06.798451+00:00",
-        "analyzed_at": "2026-11-19T19:04:36.786688+00:00",
+        "id": "b325a44376bd66a32cd15ff8e513aa5b4448db61fd894ada23541a7c55d0e540",
+        "published_at": "2026-11-17T22:06:24+00:00",
+        "fetched_at": "2026-11-19T19:35:35.334985+00:00",
+        "analyzed_at": "2026-11-19T19:37:13.624503+00:00",
         "relevant": true,
-        "score": 0.5,
+        "score": 1.0,
         "provider": "gemini-3.1-flash-lite"
       },
       {
-        "id": "d95ea78024982e53c48f98151f182314c6de10dea997fd3c7a794b6ccf028a1d",
-        "published_at": "2026-11-19T15:19:30+00:00",
-        "fetched_at": "2026-11-19T18:48:06.798451+00:00",
-        "analyzed_at": "2026-11-19T19:04:56.152268+00:00",
-        "relevant": false,
-        "score": null,
+        "id": "b092a87df4cada486ddfa9c9b14a0a2d3f79096e9eee0a6c385942e3be758f40",
+        "published_at": "2026-11-17T21:52:07+00:00",
+        "fetched_at": "2026-11-19T19:35:35.334985+00:00",
+        "analyzed_at": "2026-11-19T19:37:38.528018+00:00",
+        "relevant": true,
+        "score": -0.5,
+        "provider": "gemini-3.1-flash-lite"
+      },
+      {
+        "id": "8d0aa0922081e7ce9b35b497ee4795624a7bc8f0fbb61e7e1d4f1199626efd2a",
+        "published_at": "2026-11-17T21:34:43+00:00",
+        "fetched_at": "2026-11-19T19:35:35.334985+00:00",
+        "analyzed_at": "2026-11-19T19:37:43.902977+00:00",
+        "relevant": true,
+        "score": -1.0,
         "provider": "gemini-3.1-flash-lite"
       }
     ],
@@ -98,10 +98,10 @@
     "status": "applied_experimental",
     "experimental": true,
     "validated": false,
-    "generated_at": "2026-11-19T19:05:08.989734+00:00",
+    "generated_at": "2026-11-19T19:40:28.752571+00:00",
     "base_origin": "2026-10-31",
     "target_month": "2026-11-30",
-    "news_as_of": "2026-11-19T19:05:08.817609+00:00",
+    "news_as_of": "2026-11-19T19:40:28.693432+00:00",
     "metal": "silver",
     "baseline_probabilities": {
       "Bajista": 0.5940732955932617,
@@ -109,18 +109,18 @@
       "Alcista": 0.2551107704639435
     },
     "hybrid_probabilities": {
-      "Bajista": 0.5978999571502208,
+      "Bajista": 0.6132066033780574,
       "Neutral": 0.1508159339427948,
-      "Alcista": 0.2512841089069843
+      "Alcista": 0.2359774626791477
     },
     "baseline_trend": "Bajista",
     "trend": "Bajista",
     "requested_weight": 0.15,
-    "applied_weight": 0.015,
+    "applied_weight": 0.075,
     "probability_changes": {
-      "Bajista": 0.003826661556959099,
+      "Bajista": 0.019133307784795717,
       "Neutral": 0.0,
-      "Alcista": -0.0038266615569591544
+      "Alcista": -0.019133307784795772
     },
     "baseline_confidence": 0.5940732955932617,
     "signal": "Esperar por riesgo alto",
@@ -142,10 +142,10 @@
       "max_snapshot_age_hours": 24,
       "formula": "h=(1-a)*p+a*q; a=peso*(relevantes/5)*abs(sentimiento)",
       "neutral_probability": "Se conserva la probabilidad Neutral del modelo base.",
-      "relevant_articles": 3,
-      "mean_sentiment": -0.16666666666666666,
-      "relevant_coverage": 0.6,
-      "transferred_probability": 0.0038266615569591523,
+      "relevant_articles": 5,
+      "mean_sentiment": -0.5,
+      "relevant_coverage": 1.0,
+      "transferred_probability": 0.019133307784795762,
       "score_semantics": "Interpretación contextual de un LLM (Mistral o Gemini) o, sin LLM, tono financiero de FinBERT; no efecto causal del precio."
     },
     "limitations": [
