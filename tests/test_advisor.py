@@ -53,7 +53,11 @@ def setup(monkeypatch):
     conn.executescript(SCHEMA)
     monkeypatch.setattr(sentiment, "load_dotenv", lambda *args, **kwargs: None)
     monkeypatch.setenv("SENTIMENT_PROVIDER", "mistral")
-    monkeypatch.setattr(sentiment, "configuration", lambda provider="gemini": ("fixture-key", "mistral-fixture"))
+    def configuration(provider="gemini"):
+        if provider != "mistral":
+            raise ValueError("Falta GEMINI_API_KEY en .env.")
+        return "fixture-key", "mistral-fixture"
+    monkeypatch.setattr(sentiment, "configuration", configuration)
     monkeypatch.setattr(sentiment, "sleep", lambda seconds: None)
     def use(replies):
         client = Client(replies)
@@ -113,3 +117,20 @@ def test_daily_limit_stops_new_calls(setup, monkeypatch):
     monkeypatch.setattr(advisor, "DAILY_LIMIT", 0)
     result = advisor.recommend(conn, payload(), PREDICTION, generate=True)
     assert result["source"] == "reglas" and "límite" in result["notice"] and client.calls == 0
+
+
+def test_numbers_with_thousands_separator_are_understood():
+    data = payload()
+    data["noticias"]["titulares"] = ["Gold tops $3,800 an ounce"]
+    assert advisor.invented_numbers("El titular menciona 3,800 dólares.", data) == []
+    assert advisor.to_number("1,234.5") == 1234.5 and advisor.to_number("0,65") == 0.65
+
+
+def test_advisor_falls_back_to_the_other_llm(setup, monkeypatch):
+    conn, use = setup
+    monkeypatch.setenv("ADVISOR_PROVIDER", "mistral")
+    monkeypatch.setattr(sentiment, "configuration", lambda provider="gemini": ("fixture-key", provider + "-fixture"))
+    gemini = Reply(200, {"candidates": [{"content": {"parts": [{"text": answer()}]}}], "usageMetadata": {"totalTokenCount": 9}})
+    client = use([Reply(500, {"message": "fallo"}), Reply(500, {"message": "fallo"}), Reply(500, {"message": "fallo"}), gemini])
+    result = advisor.recommend(conn, payload(), PREDICTION, generate=True)
+    assert result["source"] == "llm" and result["model"] == "gemini-fixture"

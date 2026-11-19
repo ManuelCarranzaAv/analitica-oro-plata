@@ -47,7 +47,23 @@ SYSTEM = (
     "6) Responde sólo el JSON pedido, en español: 'justificacion' de máximo cuatro frases, 'riesgos' de uno "
     "a tres elementos breves y 'confianza' entre 0 y 1 sobre tu propia recomendación."
 )
-NUMBER = re.compile(r"\d+(?:[.,]\d+)?")
+# Primero cifras con separador de miles en inglés (3,800 o 1,234.5); luego decimales con punto o coma.
+NUMBER = re.compile(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:[.,]\d+)?")
+
+
+def to_number(raw):
+    """'3,800' -> 3800; '1,234.5' -> 1234.5; '0,65' -> 0.65; '65' -> 65."""
+    if re.fullmatch(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?", raw):
+        return float(raw.replace(",", ""))
+    return float(raw.replace(",", "."))
+
+
+def advisor_providers():
+    """Orden de LLM para la recomendación: ADVISOR_PROVIDER primero y el otro como respaldo."""
+    preferred = os.environ.get("ADVISOR_PROVIDER", "").strip().lower()
+    if preferred not in sentiment.LLM:
+        preferred = "mistral" if os.environ.get("SENTIMENT_PROVIDER", "auto").strip().lower() == "mistral" else "gemini"
+    return [preferred] + [name for name in sentiment.LLM if name != preferred]
 
 
 class Recommendation(BaseModel):
@@ -102,11 +118,11 @@ def response_schema(actions):
 
 def invented_numbers(text, payload):
     """Cifras del texto que no aparecen en la entrada (admite 0.65 como 65 % y 55 % como 0.55)."""
-    known = {float(n) for n in NUMBER.findall(json.dumps(payload, ensure_ascii=False))}
+    known = {to_number(n) for n in NUMBER.findall(json.dumps(payload, ensure_ascii=False))}
     known |= {round(k * 100, 6) for k in known} | {round(k / 100, 6) for k in known}
     invented = []
     for raw in NUMBER.findall(text):
-        number = float(raw.replace(",", "."))
+        number = to_number(raw)
         tolerance = 0.006 if number < 1 else 0.51
         if not any(abs(number - k) <= tolerance for k in known):
             invented.append(raw)
@@ -139,53 +155,62 @@ def recommend(conn, payload, prediction, generate=False):
     result = {"input": payload, "prompt": SYSTEM, "source": "reglas", "notice": None, "model": None,
               "latency_ms": None, "tokens": None, "recommendation": rules_recommendation(payload, prediction)}
     sentiment.load_dotenv(sentiment.ROOT / ".env", override=True)
-    llm = "mistral" if os.environ.get("SENTIMENT_PROVIDER", "auto").strip().lower() == "mistral" else "gemini"
-    spec = sentiment.LLM[llm]
-    try:
-        key, model = sentiment.configuration() if llm == "gemini" else sentiment.configuration(llm)
-    except ValueError as exc:
-        result["notice"] = f"Sin LLM configurado ({exc}) Se muestra la recomendación por reglas."
+    configured, problems = [], []
+    for llm in advisor_providers():
+        try:
+            key, model = sentiment.configuration() if llm == "gemini" else sentiment.configuration(llm)
+        except ValueError as exc:
+            problems.append(str(exc))
+            continue
+        cache_key = hashlib.sha256(json.dumps({"v": ADVISOR_VERSION, "model": model, "input": payload},
+                                              sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+        configured.append((llm, key, model, cache_key))
+    if not configured:
+        result["notice"] = f"Sin LLM configurado ({' '.join(problems)}) Se muestra la recomendación por reglas."
         return result
-    cache_key = hashlib.sha256(json.dumps({"v": ADVISOR_VERSION, "model": model, "input": payload},
-                                          sort_keys=True, ensure_ascii=False).encode()).hexdigest()
-    saved = conn.execute("SELECT output_json, latency_ms, tokens FROM recommendations "
-                         "WHERE cache_key=? AND status='ok' ORDER BY id DESC LIMIT 1", (cache_key,)).fetchone()
-    if saved:
-        return {**result, "source": "cache", "model": model, "recommendation": json.loads(saved[0]),
-                "latency_ms": saved[1], "tokens": saved[2]}
+    for llm, key, model, cache_key in configured:
+        saved = conn.execute("SELECT output_json, latency_ms, tokens FROM recommendations "
+                             "WHERE cache_key=? AND status='ok' ORDER BY id DESC LIMIT 1", (cache_key,)).fetchone()
+        if saved:
+            return {**result, "source": "cache", "model": model, "recommendation": json.loads(saved[0]),
+                    "latency_ms": saved[1], "tokens": saved[2]}
     if not generate:
         return None
-    used = conn.execute("SELECT COUNT(*) FROM recommendations WHERE created_at LIKE ?", (now()[:10] + "%",)).fetchone()[0]
-    if used >= DAILY_LIMIT:
-        result["notice"] = f"Se alcanzó el límite de {DAILY_LIMIT} consultas al LLM por día. Se muestra la recomendación por reglas."
-        return result
-    url, headers, body = sentiment.llm_request(llm, key, model, "DATOS:\n" + json.dumps(payload, ensure_ascii=False),
-                                               schema=response_schema(payload["acciones_permitidas"]),
-                                               system=SYSTEM, max_tokens=MAX_TOKENS)
-    response, output, tokens, status, detail = None, None, None, "error", ""
-    start = time.monotonic()
-    try:
-        response = sentiment.llm_post(sentiment.api_session(), url, int(sentiment.env_number(spec["attempts"], 3, 1, 6)),
-                                      spec["label"], headers=headers, json=body, timeout=(10, 60))
-        if not response.ok:
-            raise ValueError(sentiment.error_detail(response, key, spec["label"]))
-        data = response.json()
-        tokens = (data.get("usage") or {}).get("total_tokens") or (data.get("usageMetadata") or {}).get("totalTokenCount")
-        output = validate_recommendation(sentiment.llm_text(llm, data), payload).model_dump()
-        status = "ok"
-    except (requests.RequestException, ValueError, TypeError, KeyError, AttributeError) as exc:
-        status = "invalid" if getattr(response, "ok", False) else "error"
-        detail = str(exc)[:300].replace(key, "[CLAVE OCULTA]")
-    latency = int((time.monotonic() - start) * 1000)
-    with conn:
-        conn.execute("INSERT INTO recommendations(cache_key, metal, profile, created_at, model, prompt_version, input_json, "
-                     "output_json, status, detail, latency_ms, tokens) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-                     (cache_key, payload["metal"], payload["perfil_inversionista"], now(), model, ADVISOR_VERSION,
-                      json.dumps(payload, ensure_ascii=False), json.dumps(output, ensure_ascii=False) if output else None,
-                      status, detail, latency, tokens))
-    result.update(model=model, latency_ms=latency, tokens=tokens)
-    if status == "ok":
-        result.update(source="llm", recommendation=output)
-    else:
-        result["notice"] = f"El LLM no devolvió una recomendación válida ({detail}). Se muestra la recomendación por reglas."
+    failures = []
+    for llm, key, model, cache_key in configured:
+        used = conn.execute("SELECT COUNT(*) FROM recommendations WHERE created_at LIKE ?", (now()[:10] + "%",)).fetchone()[0]
+        if used >= DAILY_LIMIT:
+            result["notice"] = f"Se alcanzó el límite de {DAILY_LIMIT} consultas al LLM por día. Se muestra la recomendación por reglas."
+            return result
+        spec = sentiment.LLM[llm]
+        url, headers, body = sentiment.llm_request(llm, key, model, "DATOS:\n" + json.dumps(payload, ensure_ascii=False),
+                                                   schema=response_schema(payload["acciones_permitidas"]),
+                                                   system=SYSTEM, max_tokens=MAX_TOKENS)
+        response, output, tokens, status, detail = None, None, None, "error", ""
+        start = time.monotonic()
+        try:
+            response = sentiment.llm_post(sentiment.api_session(), url, int(sentiment.env_number(spec["attempts"], 3, 1, 6)),
+                                          spec["label"], headers=headers, json=body, timeout=(10, 60))
+            if not response.ok:
+                raise ValueError(sentiment.error_detail(response, key, spec["label"]))
+            data = response.json()
+            tokens = (data.get("usage") or {}).get("total_tokens") or (data.get("usageMetadata") or {}).get("totalTokenCount")
+            output = validate_recommendation(sentiment.llm_text(llm, data), payload).model_dump()
+            status = "ok"
+        except (requests.RequestException, ValueError, TypeError, KeyError, AttributeError) as exc:
+            status = "invalid" if getattr(response, "ok", False) else "error"
+            detail = str(exc)[:300].replace(key, "[CLAVE OCULTA]")
+        latency = int((time.monotonic() - start) * 1000)
+        with conn:
+            conn.execute("INSERT INTO recommendations(cache_key, metal, profile, created_at, model, prompt_version, input_json, "
+                         "output_json, status, detail, latency_ms, tokens) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                         (cache_key, payload["metal"], payload["perfil_inversionista"], now(), model, ADVISOR_VERSION,
+                          json.dumps(payload, ensure_ascii=False), json.dumps(output, ensure_ascii=False) if output else None,
+                          status, detail, latency, tokens))
+        result.update(model=model, latency_ms=latency, tokens=tokens)
+        if status == "ok":
+            result.update(source="llm", recommendation=output)
+            return result
+        failures.append(f"{spec['label']}: {detail}")
+    result["notice"] = f"El LLM no devolvió una recomendación válida ({'; '.join(failures)}). Se muestra la recomendación por reglas."
     return result
