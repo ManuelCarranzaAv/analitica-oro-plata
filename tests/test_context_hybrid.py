@@ -23,7 +23,7 @@ def fixture_db():
             key = f"{metal}-{i}"
             articles.append(dict(id=key, title=f"{name} mining production report {i}",
                                  summary=f"Fixture: {name} market context.", url=f"https://example.org/{key}",
-                                 source="Fixture local de prueba", published_at="2026-09-27T00:00:00Z",
+                                 source="Reuters · reuters.com", published_at="2026-09-27T00:00:00Z",
                                  fetched_at="2026-09-27T01:00:00Z"))
             sentiments.append(dict(news_id=key, metal=metal, score=score if i < 3 else None,
                                    relevant=int(i < 3), explanation="Fixture, no análisis real",

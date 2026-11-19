@@ -1,31 +1,34 @@
-"""RSS públicos especializados: una selección reciente y limitada por metal.
+"""Noticias de medios financieros serios y organismos oficiales del mercado de metales.
 
-Las URLs se verificaron en los enlaces ``rel=alternate`` de sus categorías.
+Google News sólo se usa como buscador: cada búsqueda se limita con ``site:`` a TRUSTED_SOURCES y cada
+resultado se acepta sólo si su medio de origen (``<source url>``) es uno de ellos.
 No se descargan cuerpos de artículos ni se accede a contenido de suscripción.
 """
 import calendar
 import hashlib
 import html
 import re
-from urllib.parse import urlparse
+from urllib.parse import quote_plus, urlparse
 
 import feedparser
 import pandas as pd
 import requests
 
 from .config import DATA
-from .news_filter import matched_metals
+from .news_filter import LOW_VALUE, TRUSTED_SOURCES, impact_score, matched_metals, trusted_domain
 from .storage import now
 
 
+def trusted_search(query):
+    sites = " OR ".join(f"site:{domain}" for domain in TRUSTED_SOURCES)
+    return "https://news.google.com/rss/search?q=" + quote_plus(f"{query} ({sites}) when:7d") + "&hl=en-US&gl=US&ceid=US:en"
+
+
 TARGETED_FEEDS = {
-    "The Northern Miner — Gold RSS": "https://www.northernminer.com/commodity/gold/feed/",
-    "The Northern Miner — Silver RSS": "https://www.northernminer.com/commodity/silver/feed/",
-    "Mining Australia — Silver RSS": "https://miningaustralia.com.au/category/commodities/silver-mining-news/feed/",
-    # Los RSS mineros publican sobre todo noticias de empresas; estas búsquedas aportan noticias del precio
-    # (Kitco, Bloomberg, Fortune, Barchart...). El medio original aparece al final del título.
-    "Google News — Gold price": "https://news.google.com/rss/search?q=%22gold+price%22+when:30d&hl=en-US&gl=US&ceid=US:en",
-    "Google News — Silver price": "https://news.google.com/rss/search?q=%22silver+price%22+when:30d&hl=en-US&gl=US&ceid=US:en",
+    "Medios confiables — precio del oro": trusted_search('"gold price" OR "gold prices" OR bullion'),
+    "Medios confiables — precio de la plata": trusted_search('"silver price" OR "silver prices" OR "silver market"'),
+    "Medios confiables — factores del oro y la plata":
+        trusted_search('(gold OR silver) (Fed OR inflation OR dollar OR yields OR "central bank" OR ETF OR demand)'),
 }
 
 
@@ -63,8 +66,12 @@ def brief_metadata(title, summary, max_words=25):
     return short_title, excerpt
 
 
-def parse_feed(body, source, fetched_at, window_days=31):
-    """Validar fecha, URL y tema del RSS; devolver sólo metadatos públicos."""
+def parse_feed(body, source, fetched_at, window_days=31, trusted_only=False):
+    """Validar fecha, URL, tema y medio del RSS; devolver sólo metadatos públicos.
+
+    Con trusted_only, el medio de origen de cada entrada debe estar en TRUSTED_SOURCES, se descartan los
+    titulares de bajo valor y la fuente guardada es 'Medio · dominio' (por ejemplo 'Reuters · reuters.com').
+    """
     feed = feedparser.parse(body)
     if not feed.entries:
         raise ValueError("RSS sin entradas legibles; no se sustituye por noticias simuladas.")
@@ -92,21 +99,29 @@ def parse_feed(body, source, fetched_at, window_days=31):
         title, summary = clean(entry.get("title", "")), clean(entry.get("summary", ""))
         if not title or not matched_metals(title, summary):
             continue
+        entry_source = source
+        if trusted_only:
+            origin = urlparse(str((entry.get("source") or {}).get("href", ""))).hostname or ""
+            domain = trusted_domain(origin)
+            if not domain or LOW_VALUE.search(f"{title} {summary}"):
+                continue
+            entry_source = f"{TRUSTED_SOURCES[domain]} · {domain}"
         title, summary = brief_metadata(title, summary)
         if not matched_metals(title, summary):
             continue
         rows.append({"id": hashlib.sha256(url.encode()).hexdigest(), "title": title,
-                     "summary": summary, "url": url, "source": source,
+                     "summary": summary, "url": url, "source": entry_source,
                      "published_at": published.isoformat(), "fetched_at": asof.isoformat()})
     return rows
 
 
 def select_balanced(rows, per_metal=5):
-    """Unión de los N titulares más recientes por metal, sin duplicar artículos."""
+    """Unión de N titulares por metal, sin duplicar artículos: primero los que hablan de factores de precio."""
     if not 1 <= per_metal <= 20:
         raise ValueError("El objetivo por metal debe estar entre 1 y 20.")
     selected, counts = {}, {}
-    ordered = sorted(rows, key=lambda r: (pd.Timestamp(r["published_at"]), r["id"]), reverse=True)
+    ordered = sorted(rows, key=lambda r: (impact_score(r["title"], r["summary"]) > 0, pd.Timestamp(r["published_at"]), r["id"]),
+                     reverse=True)
     for metal in ("gold", "silver"):
         titles, ids = set(), set()
         for row in ordered:
@@ -146,7 +161,7 @@ def fetch_targeted_news(per_metal=5, window_days=31):
                 raw.parent.mkdir(parents=True, exist_ok=True)
                 if not raw.exists():
                     raw.write_bytes(body)
-                rows = parse_feed(body, source, fetched_at, window_days)
+                rows = parse_feed(body, source, fetched_at, window_days, trusted_only=True)
                 candidates.extend(rows)
                 diagnostic.update(status="ok" if rows else "empty", rows=len(rows),
                                   sha256=digest, detail="Sólo metadatos RSS, filtro temático y temporal aplicado.")

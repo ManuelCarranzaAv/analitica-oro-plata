@@ -25,7 +25,7 @@ def test_topic_filter(title, summary, expected):
 
 
 def article(key, title, date="2026-09-20T00:00:00Z"):
-    return dict(id=key, title=title, summary="", url=f"https://example.org/{key}", source="Fixture", published_at=date, fetched_at=date)
+    return dict(id=key, title=title, summary="", url=f"https://example.org/{key}", source="Reuters · reuters.com", published_at=date, fetched_at=date)
 
 
 def test_each_metal_gets_five_without_future_old_or_duplicate_articles():
@@ -70,3 +70,14 @@ def test_context_is_per_metal_and_never_backdates_analysis():
     assert "discrepa" in contextual_reading(silver, "Alcista")
     assert snapshot(news, results, "gold", at="2026-09-26")["analyzed"] == 0
     conn.close()
+
+
+def test_only_trusted_outlets_and_price_drivers_come_first():
+    rows = [article("a", "Gold prices fall as dollar and yields rise", "2026-09-23"),
+            article("b", "Gold price today steady", "2026-09-24"),
+            dict(article("c", "Gold price jumps on blog rumor", "2026-09-24"), source="Random Blog · example.org"),
+            article("d", "Gold, silver dip brings buyers to jewellery stores", "2026-09-24")]
+    gold = select_news_batch(pd.DataFrame(rows), per_metal=1, at="2026-09-24T12:00:00Z")["gold"]
+    assert gold.id.tolist() == ["a"]
+    everything = select_news_batch(pd.DataFrame(rows), per_metal=5, at="2026-09-24T12:00:00Z")["gold"]
+    assert set(everything.id) == {"a", "b"}
