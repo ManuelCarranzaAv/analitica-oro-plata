@@ -1,6 +1,6 @@
 {
   "metal": "silver",
-  "generated_at": "2026-11-19T19:40:28.752388+00:00",
+  "generated_at": "2026-11-20T19:21:00.300438+00:00",
   "origin": "2026-10-31",
   "target_month": "2026-11-30",
   "source_price_month": "2026-09-30",
@@ -22,7 +22,7 @@
   "rules": "Heurística académica v1; no calibrada con pérdidas financieras.",
   "news_context": {
     "metal": "silver",
-    "as_of": "2026-11-19T19:40:28.693432+00:00",
+    "as_of": "2026-11-20T19:21:00.253381+00:00",
     "window_days": 31,
     "requested": 5,
     "selected": 5,
@@ -30,19 +30,37 @@
     "relevant": 5,
     "pending": 0,
     "missing_articles": 0,
-    "mean_sentiment": -0.5,
+    "mean_sentiment": -0.7,
     "tone": "Negativo",
     "news_ids": [
+      "59d2add1cd813b49e2edc032167bfd2983ecf19a2ca85010183cc5308b0f3ca4",
+      "eb850b67e5657d549eddc145db5d8104a97a2675fcee54418d5fa23126dee492",
       "6d96feed24abfe3eae356e4e2ec747e65a80430bcf3e56d5089f030c1feebedd",
-      "cca0674859faab39212b8ad6de4dc14452643ee07622d7c0023c87239fdab094",
-      "b325a44376bd66a32cd15ff8e513aa5b4448db61fd894ada23541a7c55d0e540",
-      "b092a87df4cada486ddfa9c9b14a0a2d3f79096e9eee0a6c385942e3be758f40",
-      "8d0aa0922081e7ce9b35b497ee4795624a7bc8f0fbb61e7e1d4f1199626efd2a"
+      "57c55a7fbcbb5e02dc62c9cfb60819b9b22dffb9b6a389884d6a55e3ee8dd5ed",
+      "cca0674859faab39212b8ad6de4dc14452643ee07622d7c0023c87239fdab094"
     ],
     "providers": {
       "gemini-3.1-flash-lite": 5
     },
     "article_audit": [
+      {
+        "id": "59d2add1cd813b49e2edc032167bfd2983ecf19a2ca85010183cc5308b0f3ca4",
+        "published_at": "2026-11-20T11:40:31+00:00",
+        "fetched_at": "2026-11-20T19:19:03.417442+00:00",
+        "analyzed_at": "2026-11-20T19:20:19.042288+00:00",
+        "relevant": true,
+        "score": -1.0,
+        "provider": "gemini-3.1-flash-lite"
+      },
+      {
+        "id": "eb850b67e5657d549eddc145db5d8104a97a2675fcee54418d5fa23126dee492",
+        "published_at": "2026-11-19T21:55:28+00:00",
+        "fetched_at": "2026-11-20T19:19:03.417442+00:00",
+        "analyzed_at": "2026-11-20T19:20:44.895166+00:00",
+        "relevant": true,
+        "score": -1.0,
+        "provider": "gemini-3.1-flash-lite"
+      },
       {
         "id": "6d96feed24abfe3eae356e4e2ec747e65a80430bcf3e56d5089f030c1feebedd",
         "published_at": "2026-11-18T22:02:35+00:00",
@@ -53,37 +71,19 @@
         "provider": "gemini-3.1-flash-lite"
       },
       {
+        "id": "57c55a7fbcbb5e02dc62c9cfb60819b9b22dffb9b6a389884d6a55e3ee8dd5ed",
+        "published_at": "2026-11-18T18:22:49+00:00",
+        "fetched_at": "2026-11-20T19:19:03.417442+00:00",
+        "analyzed_at": "2026-11-20T19:20:58.606888+00:00",
+        "relevant": true,
+        "score": 0.5,
+        "provider": "gemini-3.1-flash-lite"
+      },
+      {
         "id": "cca0674859faab39212b8ad6de4dc14452643ee07622d7c0023c87239fdab094",
         "published_at": "2026-11-18T14:06:27+00:00",
         "fetched_at": "2026-11-19T19:35:35.334985+00:00",
         "analyzed_at": "2026-11-19T19:36:59.874014+00:00",
-        "relevant": true,
-        "score": -1.0,
-        "provider": "gemini-3.1-flash-lite"
-      },
-      {
-        "id": "b325a44376bd66a32cd15ff8e513aa5b4448db61fd894ada23541a7c55d0e540",
-        "published_at": "2026-11-17T22:06:24+00:00",
-        "fetched_at": "2026-11-19T19:35:35.334985+00:00",
-        "analyzed_at": "2026-11-19T19:37:13.624503+00:00",
-        "relevant": true,
-        "score": 1.0,
-        "provider": "gemini-3.1-flash-lite"
-      },
-      {
-        "id": "b092a87df4cada486ddfa9c9b14a0a2d3f79096e9eee0a6c385942e3be758f40",
-        "published_at": "2026-11-17T21:52:07+00:00",
-        "fetched_at": "2026-11-19T19:35:35.334985+00:00",
-        "analyzed_at": "2026-11-19T19:37:38.528018+00:00",
-        "relevant": true,
-        "score": -0.5,
-        "provider": "gemini-3.1-flash-lite"
-      },
-      {
-        "id": "8d0aa0922081e7ce9b35b497ee4795624a7bc8f0fbb61e7e1d4f1199626efd2a",
-        "published_at": "2026-11-17T21:34:43+00:00",
-        "fetched_at": "2026-11-19T19:35:35.334985+00:00",
-        "analyzed_at": "2026-11-19T19:37:43.902977+00:00",
         "relevant": true,
         "score": -1.0,
         "provider": "gemini-3.1-flash-lite"
@@ -98,10 +98,10 @@
     "status": "applied_experimental",
     "experimental": true,
     "validated": false,
-    "generated_at": "2026-11-19T19:40:28.752571+00:00",
+    "generated_at": "2026-11-20T19:21:00.300681+00:00",
     "base_origin": "2026-10-31",
     "target_month": "2026-11-30",
-    "news_as_of": "2026-11-19T19:40:28.693432+00:00",
+    "news_as_of": "2026-11-20T19:21:00.253381+00:00",
     "metal": "silver",
     "baseline_probabilities": {
       "Bajista": 0.5940732955932617,
@@ -109,18 +109,18 @@
       "Alcista": 0.2551107704639435
     },
     "hybrid_probabilities": {
-      "Bajista": 0.6132066033780574,
+      "Bajista": 0.6208599264919757,
       "Neutral": 0.1508159339427948,
-      "Alcista": 0.2359774626791477
+      "Alcista": 0.22832413956522943
     },
     "baseline_trend": "Bajista",
     "trend": "Bajista",
     "requested_weight": 0.15,
-    "applied_weight": 0.075,
+    "applied_weight": 0.105,
     "probability_changes": {
-      "Bajista": 0.019133307784795717,
+      "Bajista": 0.026786630898714026,
       "Neutral": 0.0,
-      "Alcista": -0.019133307784795772
+      "Alcista": -0.026786630898714053
     },
     "baseline_confidence": 0.5940732955932617,
     "signal": "Esperar por riesgo alto",
@@ -143,9 +143,9 @@
       "formula": "h=(1-a)*p+a*q; a=peso*(relevantes/5)*abs(sentimiento)",
       "neutral_probability": "Se conserva la probabilidad Neutral del modelo base.",
       "relevant_articles": 5,
-      "mean_sentiment": -0.5,
+      "mean_sentiment": -0.7,
       "relevant_coverage": 1.0,
-      "transferred_probability": 0.019133307784795762,
+      "transferred_probability": 0.026786630898714064,
       "score_semantics": "Interpretación contextual de un LLM (Mistral o Gemini) o, sin LLM, tono financiero de FinBERT; no efecto causal del precio."
     },
     "limitations": [
