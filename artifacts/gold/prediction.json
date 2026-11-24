@@ -1,6 +1,6 @@
 {
   "metal": "gold",
-  "generated_at": "2026-11-23T22:59:37.525996+00:00",
+  "generated_at": "2026-11-24T21:39:11.824655+00:00",
   "origin": "2026-10-31",
   "target_month": "2026-11-30",
   "source_price_month": "2026-09-30",
@@ -24,86 +24,86 @@
   "rules": "Heurística académica v1; no calibrada con pérdidas financieras.",
   "news_context": {
     "metal": "gold",
-    "as_of": "2026-11-23T22:59:37.475361+00:00",
+    "as_of": "2026-11-24T21:39:11.741733+00:00",
     "window_days": 31,
     "requested": 5,
     "selected": 5,
-    "analyzed": 2,
-    "relevant": 2,
-    "pending": 3,
+    "analyzed": 5,
+    "relevant": 5,
+    "pending": 0,
     "missing_articles": 0,
-    "mean_sentiment": 1.0,
-    "tone": "Positivo",
+    "mean_sentiment": -0.5,
+    "tone": "Negativo",
     "news_ids": [
-      "f4fe5e6298e0593c073a16dd1a80828dc01bbebe1fc160bdc98afbc94148333c",
-      "3fa9633425c77ce7d9b888e45445d1c8dc155ffc9cc1420db0fb9702a50b907d",
-      "dfcdad6e0a456504cbe7b404bad9c31e7abe457c6ebd889e105b4b6f2f8d3793",
-      "26e45ef6ce554100114c5efa7454b475098b8c57557f74da9b7bc6bcf3448563",
-      "53ea14a24ed59b6c18482170904343473350761e853d0b1900d2e1a68a17f48f"
+      "eb34b68f79df8955c902826f47523fb461cc60ca4d0e89801f0bd81846b19f8d",
+      "751bdfa15c3c31ff5914159d2c1bc5076fc9cc2d75020b16420f242da1b440ea",
+      "113ea942e4e51cf710f694dae61c57c786d6c4abd7973d3618afcf55cfe49c1f",
+      "086c599a364268eaf6f24513ecf485797139fe028c0705c013cc62fa525a8cf9",
+      "aa472ee8933469565e70efa7f9664f4a9dfd068d0f2c492b402527f94f00f8a0"
     ],
     "providers": {
-      "gemini-3.1-flash-lite": 2
+      "gemini-3.1-flash-lite": 5
     },
     "article_audit": [
       {
-        "id": "f4fe5e6298e0593c073a16dd1a80828dc01bbebe1fc160bdc98afbc94148333c",
-        "published_at": "2026-11-23T21:16:22+00:00",
-        "fetched_at": "2026-11-23T22:58:04.988887+00:00",
-        "analyzed_at": "2026-11-23T22:58:07.441116+00:00",
+        "id": "eb34b68f79df8955c902826f47523fb461cc60ca4d0e89801f0bd81846b19f8d",
+        "published_at": "2026-11-24T18:01:16+00:00",
+        "fetched_at": "2026-11-24T21:37:41.367534+00:00",
+        "analyzed_at": "2026-11-24T21:37:45.102172+00:00",
         "relevant": true,
-        "score": 1.0,
+        "score": -1.0,
         "provider": "gemini-3.1-flash-lite"
       },
       {
-        "id": "3fa9633425c77ce7d9b888e45445d1c8dc155ffc9cc1420db0fb9702a50b907d",
-        "published_at": "2026-11-23T16:56:38+00:00",
-        "fetched_at": "2026-11-19T19:32:35.603253+00:00",
-        "analyzed_at": "2026-11-19T19:33:14.979880+00:00",
+        "id": "751bdfa15c3c31ff5914159d2c1bc5076fc9cc2d75020b16420f242da1b440ea",
+        "published_at": "2026-11-24T17:24:10+00:00",
+        "fetched_at": "2026-11-24T21:37:41.367534+00:00",
+        "analyzed_at": "2026-11-24T21:38:04.926091+00:00",
         "relevant": true,
-        "score": 1.0,
+        "score": 0.5,
         "provider": "gemini-3.1-flash-lite"
       },
       {
-        "id": "dfcdad6e0a456504cbe7b404bad9c31e7abe457c6ebd889e105b4b6f2f8d3793",
-        "published_at": "2026-11-23T14:18:04+00:00",
-        "fetched_at": "2026-11-23T22:58:04.988887+00:00",
-        "analyzed_at": null,
-        "relevant": null,
-        "score": null,
-        "provider": null
+        "id": "113ea942e4e51cf710f694dae61c57c786d6c4abd7973d3618afcf55cfe49c1f",
+        "published_at": "2026-11-24T15:01:47+00:00",
+        "fetched_at": "2026-11-24T21:37:41.367534+00:00",
+        "analyzed_at": "2026-11-24T21:38:16.077201+00:00",
+        "relevant": true,
+        "score": -0.5,
+        "provider": "gemini-3.1-flash-lite"
       },
       {
-        "id": "26e45ef6ce554100114c5efa7454b475098b8c57557f74da9b7bc6bcf3448563",
-        "published_at": "2026-11-23T05:49:00+00:00",
-        "fetched_at": "2026-11-23T22:58:04.988887+00:00",
-        "analyzed_at": null,
-        "relevant": null,
-        "score": null,
-        "provider": null
+        "id": "086c599a364268eaf6f24513ecf485797139fe028c0705c013cc62fa525a8cf9",
+        "published_at": "2026-11-24T13:45:25+00:00",
+        "fetched_at": "2026-11-24T21:37:41.367534+00:00",
+        "analyzed_at": "2026-11-24T21:38:28.741417+00:00",
+        "relevant": true,
+        "score": -0.5,
+        "provider": "gemini-3.1-flash-lite"
       },
       {
-        "id": "53ea14a24ed59b6c18482170904343473350761e853d0b1900d2e1a68a17f48f",
-        "published_at": "2026-11-23T05:47:14+00:00",
-        "fetched_at": "2026-11-23T22:58:04.988887+00:00",
-        "analyzed_at": null,
-        "relevant": null,
-        "score": null,
-        "provider": null
+        "id": "aa472ee8933469565e70efa7f9664f4a9dfd068d0f2c492b402527f94f00f8a0",
+        "published_at": "2026-11-24T08:37:00+00:00",
+        "fetched_at": "2026-11-24T21:37:41.367534+00:00",
+        "analyzed_at": "2026-11-24T21:38:44.524706+00:00",
+        "relevant": true,
+        "score": -1.0,
+        "provider": "gemini-3.1-flash-lite"
       }
     ],
     "score_semantics": "Interpretación contextual de un LLM (Mistral o Gemini) o, sin LLM, tono financiero de FinBERT; no efecto causal del precio.",
     "role": "Contexto actual y escenario experimental separado; no modifica la predicción XGBoost evaluada."
   },
-  "news_reading": "El tono de las noticias coincide con la dirección de la tendencia; no aumenta por sí mismo la probabilidad del modelo. El lote todavía está incompleto.",
+  "news_reading": "El tono de las noticias discrepa de la tendencia mensual: conviene revisar la evidencia antes de interpretar la señal.",
   "hybrid": {
     "version": "hybrid_scenario_v1",
-    "status": "blocked",
+    "status": "applied_experimental",
     "experimental": true,
     "validated": false,
-    "generated_at": "2026-11-23T22:59:37.528711+00:00",
+    "generated_at": "2026-11-24T21:39:11.828175+00:00",
     "base_origin": "2026-10-31",
     "target_month": "2026-11-30",
-    "news_as_of": "2026-11-23T22:59:37.475361+00:00",
+    "news_as_of": "2026-11-24T21:39:11.741733+00:00",
     "metal": "gold",
     "baseline_probabilities": {
       "Bajista": 0.24589113891124725,
@@ -111,29 +111,25 @@
       "Alcista": 0.47106480598449707
     },
     "hybrid_probabilities": {
-      "Bajista": 0.24589113891124725,
+      "Bajista": 0.28122099936008454,
       "Neutral": 0.2830440402030945,
-      "Alcista": 0.47106480598449707
+      "Alcista": 0.4357349455356598
     },
     "baseline_trend": "Alcista",
     "trend": "Alcista",
     "requested_weight": 0.15,
-    "applied_weight": 0.0,
+    "applied_weight": 0.075,
     "probability_changes": {
-      "Bajista": 0.0,
+      "Bajista": 0.03532986044883729,
       "Neutral": 0.0,
-      "Alcista": 0.0
+      "Alcista": -0.03532986044883729
     },
     "baseline_confidence": 0.47106480598449707,
     "signal": "Abstenerse",
     "risk": "Medio",
     "decision_uses_hybrid": false,
     "reasons": [
-      "La fecha de un análisis antecede a su publicación o captura.",
-      "Falta completar o fechar el análisis de una de las cinco noticias.",
-      "Se requieren cinco noticias analizadas antes de combinar la predicción.",
-      "Se requieren al menos tres noticias relevantes con sentimiento válido para este metal.",
-      "La cobertura declarada no coincide con los cinco análisis auditados."
+      "Lote completo y vigente: se aplica una hipótesis direccional acotada, sin cambiar la señal base."
     ],
     "baseline_reasons": [
       "XGBoost no superó ambos modelos de referencia en macro-F1 del holdout.",
@@ -150,8 +146,11 @@
       "max_snapshot_age_hours": 24,
       "formula": "h=(1-a)*p+a*q; a=peso*(relevantes/5)*abs(sentimiento)",
       "neutral_probability": "Se conserva la probabilidad Neutral del modelo base.",
-      "relevant_articles": 2,
-      "mean_sentiment": 1.0
+      "relevant_articles": 5,
+      "mean_sentiment": -0.5,
+      "relevant_coverage": 1.0,
+      "transferred_probability": 0.03532986044883728,
+      "score_semantics": "Interpretación contextual de un LLM (Mistral o Gemini) o, sin LLM, tono financiero de FinBERT; no efecto causal del precio."
     },
     "limitations": [
       "Escenario experimental con probabilidades orientativas: no fue entrenado ni validado temporalmente.",
