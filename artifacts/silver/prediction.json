@@ -1,6 +1,6 @@
 {
   "metal": "silver",
-  "generated_at": "2026-11-24T21:39:11.918933+00:00",
+  "generated_at": "2026-11-25T20:47:13.364546+00:00",
   "origin": "2026-10-31",
   "target_month": "2026-11-30",
   "source_price_month": "2026-09-30",
@@ -22,27 +22,54 @@
   "rules": "Heurística académica v1; no calibrada con pérdidas financieras.",
   "news_context": {
     "metal": "silver",
-    "as_of": "2026-11-24T21:39:11.833579+00:00",
+    "as_of": "2026-11-25T20:47:13.268381+00:00",
     "window_days": 31,
     "requested": 5,
     "selected": 5,
     "analyzed": 5,
-    "relevant": 5,
+    "relevant": 4,
     "pending": 0,
     "missing_articles": 0,
-    "mean_sentiment": -0.5,
+    "mean_sentiment": -0.325,
     "tone": "Negativo",
     "news_ids": [
+      "95c08453dfa7390d6e2e8e4a02fc6abf561a7e0f605e4e924124a40bef66f811",
+      "7086404dac64e933ac091358a5eeff3b9fbf87143b8fba8c3643b5a7cad45481",
+      "85d888930712f4a36fe6bb279bf6ec163e6c5619143e0f4e6e232703aeb95643",
       "086c599a364268eaf6f24513ecf485797139fe028c0705c013cc62fa525a8cf9",
-      "9c202b4d0465f453c40f1c675cec0e9b25ae9716f70c128177be3ae5c96b5589",
-      "b9241efd41f6701216d07624a286c0af2786dfc24f79483e09a9363d1ad67d9e",
-      "167d0b190de29c4395f8e6223ca38bc0ff2d1b2c6d20a90c5cc953ac57a56a4b",
-      "21fcc034f01d077f4651b1be547ef99e34899ba24f5c1b4d9cd016479b92d03c"
+      "9c202b4d0465f453c40f1c675cec0e9b25ae9716f70c128177be3ae5c96b5589"
     ],
     "providers": {
       "gemini-3.1-flash-lite": 5
     },
     "article_audit": [
+      {
+        "id": "95c08453dfa7390d6e2e8e4a02fc6abf561a7e0f605e4e924124a40bef66f811",
+        "published_at": "2026-11-25T14:46:53+00:00",
+        "fetched_at": "2026-11-25T20:45:53.696795+00:00",
+        "analyzed_at": "2026-11-25T20:46:24.974207+00:00",
+        "relevant": false,
+        "score": null,
+        "provider": "gemini-3.1-flash-lite"
+      },
+      {
+        "id": "7086404dac64e933ac091358a5eeff3b9fbf87143b8fba8c3643b5a7cad45481",
+        "published_at": "2026-11-25T14:01:45+00:00",
+        "fetched_at": "2026-11-25T20:45:53.696795+00:00",
+        "analyzed_at": "2026-11-25T20:46:43.734640+00:00",
+        "relevant": true,
+        "score": -0.8,
+        "provider": "gemini-3.1-flash-lite"
+      },
+      {
+        "id": "85d888930712f4a36fe6bb279bf6ec163e6c5619143e0f4e6e232703aeb95643",
+        "published_at": "2026-11-24T22:16:28+00:00",
+        "fetched_at": "2026-11-25T20:45:53.696795+00:00",
+        "analyzed_at": "2026-11-25T20:47:10.716763+00:00",
+        "relevant": true,
+        "score": -1.0,
+        "provider": "gemini-3.1-flash-lite"
+      },
       {
         "id": "086c599a364268eaf6f24513ecf485797139fe028c0705c013cc62fa525a8cf9",
         "published_at": "2026-11-24T13:45:25+00:00",
@@ -60,33 +87,6 @@
         "relevant": true,
         "score": 1.0,
         "provider": "gemini-3.1-flash-lite"
-      },
-      {
-        "id": "b9241efd41f6701216d07624a286c0af2786dfc24f79483e09a9363d1ad67d9e",
-        "published_at": "2026-11-20T22:53:30+00:00",
-        "fetched_at": "2026-11-21T18:20:50.258239+00:00",
-        "analyzed_at": "2026-11-21T18:20:53.200228+00:00",
-        "relevant": true,
-        "score": -1.0,
-        "provider": "gemini-3.1-flash-lite"
-      },
-      {
-        "id": "167d0b190de29c4395f8e6223ca38bc0ff2d1b2c6d20a90c5cc953ac57a56a4b",
-        "published_at": "2026-11-20T21:26:44+00:00",
-        "fetched_at": "2026-11-21T18:20:50.258239+00:00",
-        "analyzed_at": "2026-11-21T18:21:05.679967+00:00",
-        "relevant": true,
-        "score": -1.0,
-        "provider": "gemini-3.1-flash-lite"
-      },
-      {
-        "id": "21fcc034f01d077f4651b1be547ef99e34899ba24f5c1b4d9cd016479b92d03c",
-        "published_at": "2026-11-20T21:00:25+00:00",
-        "fetched_at": "2026-11-21T18:20:50.258239+00:00",
-        "analyzed_at": "2026-11-21T18:21:19.140737+00:00",
-        "relevant": true,
-        "score": -1.0,
-        "provider": "gemini-3.1-flash-lite"
       }
     ],
     "score_semantics": "Interpretación contextual de un LLM (Mistral o Gemini) o, sin LLM, tono financiero de FinBERT; no efecto causal del precio.",
@@ -98,10 +98,10 @@
     "status": "applied_experimental",
     "experimental": true,
     "validated": false,
-    "generated_at": "2026-11-24T21:39:11.919173+00:00",
+    "generated_at": "2026-11-25T20:47:13.364975+00:00",
     "base_origin": "2026-10-31",
     "target_month": "2026-11-30",
-    "news_as_of": "2026-11-24T21:39:11.833579+00:00",
+    "news_as_of": "2026-11-25T20:47:13.268381+00:00",
     "metal": "silver",
     "baseline_probabilities": {
       "Bajista": 0.5940732955932617,
@@ -109,18 +109,18 @@
       "Alcista": 0.2551107704639435
     },
     "hybrid_probabilities": {
-      "Bajista": 0.6132066033780574,
+      "Bajista": 0.6040226156413555,
       "Neutral": 0.1508159339427948,
-      "Alcista": 0.2359774626791477
+      "Alcista": 0.2451614504158497
     },
     "baseline_trend": "Bajista",
     "trend": "Bajista",
     "requested_weight": 0.15,
-    "applied_weight": 0.075,
+    "applied_weight": 0.039,
     "probability_changes": {
-      "Bajista": 0.019133307784795717,
+      "Bajista": 0.00994932004809379,
       "Neutral": 0.0,
-      "Alcista": -0.019133307784795772
+      "Alcista": -0.00994932004809379
     },
     "baseline_confidence": 0.5940732955932617,
     "signal": "Esperar por riesgo alto",
@@ -142,10 +142,10 @@
       "max_snapshot_age_hours": 24,
       "formula": "h=(1-a)*p+a*q; a=peso*(relevantes/5)*abs(sentimiento)",
       "neutral_probability": "Se conserva la probabilidad Neutral del modelo base.",
-      "relevant_articles": 5,
-      "mean_sentiment": -0.5,
-      "relevant_coverage": 1.0,
-      "transferred_probability": 0.019133307784795762,
+      "relevant_articles": 4,
+      "mean_sentiment": -0.325,
+      "relevant_coverage": 0.8,
+      "transferred_probability": 0.009949320048093796,
       "score_semantics": "Interpretación contextual de un LLM (Mistral o Gemini) o, sin LLM, tono financiero de FinBERT; no efecto causal del precio."
     },
     "limitations": [
